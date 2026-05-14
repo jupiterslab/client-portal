@@ -1610,7 +1610,10 @@ async function loadFields() {
   rows.forEach(row => {
     const el = document.querySelector(`[data-field="${row.field_key}"]`);
     if (!el) return;
-    if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+    if (el.type === 'checkbox') {
+      // Restore checkbox checked state
+      el.checked = row.field_value === 'true';
+    } else if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
       el.value = row.field_value || '';
     } else {
       el.textContent = row.field_value || '';
